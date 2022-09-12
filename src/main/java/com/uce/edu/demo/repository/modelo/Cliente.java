@@ -1,10 +1,12 @@
 package com.uce.edu.demo.repository.modelo;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,7 +34,7 @@ public class Cliente {
 	private String apellido;
 
 	@Column(name = "clie_fecha_nacimiento")
-	private LocalDate fechaNacimiento;
+	private Date fechaNacimiento;
 
 	@Column(name = "clie_genero")
 	private String genero;
@@ -40,7 +42,7 @@ public class Cliente {
 	@Column(name = "clie_registro")
 	private String registro;
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
 
 	@Override
@@ -82,11 +84,11 @@ public class Cliente {
 		this.apellido = apellido;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

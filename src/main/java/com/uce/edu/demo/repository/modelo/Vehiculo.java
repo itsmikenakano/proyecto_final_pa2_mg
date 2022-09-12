@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,8 +31,14 @@ public class Vehiculo {
 	@Column(name = "vehi_marca")
 	private String marca;
 
+	@Column(name = "vehi_modelo")
+	private String modelo;
+	
+	@Column(name = "vehi_estado")
+	private String estado;
+
 	@Column(name = "vehi_anio_fabricacion")
-	private LocalDate anioFabricacion;
+	private String anioFabricacion;
 
 	@Column(name = "vehi_pais_fabricacion")
 	private String paisFabricacion;
@@ -44,14 +52,14 @@ public class Vehiculo {
 	@Column(name = "vehi_valor_por_dia")
 	private BigDecimal valorPorDia;
 
-	@OneToMany(mappedBy = "vehiculo")
+	@OneToMany(mappedBy = "vehiculo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Reserva> reservas;
 
 	@Override
 	public String toString() {
-		return "Vehiculo [id=" + id + ", placa=" + placa + ", marca=" + marca + ", anioFabricacion=" + anioFabricacion
-				+ ", paisFabricacion=" + paisFabricacion + ", cilindraje=" + cilindraje + ", avaluo=" + avaluo
-				+ ", valorPorDia=" + valorPorDia + "]";
+		return "Vehiculo [id=" + id + ", placa=" + placa + ", marca=" + marca + ", modelo=" + modelo
+				+ ", anioFabricacion=" + anioFabricacion + ", paisFabricacion=" + paisFabricacion + ", cilindraje="
+				+ cilindraje + ", avaluo=" + avaluo + ", valorPorDia=" + valorPorDia + ", reservas=" + reservas + "]";
 	}
 
 	// SET Y GET
@@ -79,11 +87,11 @@ public class Vehiculo {
 		this.marca = marca;
 	}
 
-	public LocalDate getAnioFabricacion() {
+	public String getAnioFabricacion() {
 		return anioFabricacion;
 	}
 
-	public void setAnioFabricacion(LocalDate anioFabricacion) {
+	public void setAnioFabricacion(String anioFabricacion) {
 		this.anioFabricacion = anioFabricacion;
 	}
 
@@ -126,5 +134,23 @@ public class Vehiculo {
 	public void setReservas(List<Reserva> reservas) {
 		this.reservas = reservas;
 	}
+
+	public String getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(String modelo) {
+		this.modelo = modelo;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+	
 
 }
